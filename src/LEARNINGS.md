@@ -30,3 +30,29 @@ a label you stick on the element it does nothing its own no styling no behaviour
 **Decisions I made**
 
 - Chose Radix UI over the recommended Base UI, because the brief's Phase 4 questions are written against Radix.
+
+## Phase 2 — Storybook
+
+**args vs argTypes vs parameters**
+args : which is component and what the component receive if i change the args the component re render differently.
+argTypes: which is control the UI(control panel) how it works etc.
+parameter: it is basically addone or improve the storybook.
+
+**Why fn() rather than () => {}**
+both are function but they do nothing fn() is like a spy which records every call which helps alot later.
+
+**What satisfies Meta<typeof Button> buys you**
+satisfies: it is basically a checker which checks the meta againts buttons props in hidden way means without widening the type.
+
+**What autodocs generates, and from what**
+autodocs: it generate the documents automatically it contains default, type, source etc.props table comes from your TypeScript types; the previews and code snippets come from your stories.
+
+**The bug the keyboard story catches that the click story misses**
+in click story it skips the keyboard features means only mouse user can access this but noone know untill the keyboard is used . but in keyboard story the tab button or keyboard button works.
+
+**What the a11y panel catches and misses**
+It catches things a machine can measure — a missing label, contrast that's too low.
+It misses anything needing judgement: whether a label actually means something
+("Click here" passes but is useless), whether tab order makes sense, whether focus
+goes somewhere sensible after a dialog closes. Zero violations means nothing
+obviously broken, not that it's accessible.
