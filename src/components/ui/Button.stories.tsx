@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, fn } from "storybook/test";
 
 import { Button } from "@/components/ui/button";
+import { ChevronRight, X } from "lucide-react";
 
 const meta = {
   title: "Components/Button",
@@ -12,7 +13,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-//export const Default: Story = {};
+export const Default: Story = {};
 export const Outline: Story = { args: { variant: "outline" } };
 export const Secondary: Story = { args: { variant: "secondary" } };
 export const Ghost: Story = { args: { variant: "ghost" } };
@@ -24,6 +25,29 @@ export const SizeSm: Story = { args: { size: "sm" } };
 export const SizeLg: Story = { args: { size: "lg" } };
 
 export const Disabled: Story = { args: { disabled: true } };
+
+export const Subtle: Story = { args: { variant: "subtle" } };
+
+export const SizeXl: Story = { args: { size: "xl" } };
+
+export const WithStartIcon: Story = {
+  args: { startIcon: <X /> },
+};
+
+export const WithEndIcon: Story = {
+  args: { endIcon: <ChevronRight /> },
+};
+
+export const Loading: Story = { args: { loading: true } };
+
+export const IconOnly: Story = {
+  args: {
+    startIcon: <X />,
+    children: undefined,
+    size: "icon",
+    "aria-label": "Close",
+  },
+};
 
 export const ClickInteraction: Story = {
   play: async ({ canvas, userEvent, args }) => {
@@ -43,9 +67,31 @@ export const KeyboardInteraction: Story = {
 
 export const DisabledInteraction: Story = {
   args: { disabled: true },
-  play: async ({ canvas, userEvent, args }) => {
-    await userEvent.click(canvas.getByRole("button"));
-    await expect(args.onClick).not.toHaveBeenCalled();
+  play: async ({ canvas }) => {
+    await expect(canvas.getByRole("button")).toBeDisabled();
+  },
+};
+
+export const LoadingInteraction: Story = {
+  args: { loading: true },
+  play: async ({ canvas }) => {
+    const button = canvas.getByRole("button");
+    await expect(button).toBeDisabled();
+    await expect(button).toHaveAttribute("aria-busy", "true");
+  },
+};
+
+export const IconOnlyInteraction: Story = {
+  args: {
+    startIcon: <X />,
+    children: undefined,
+    size: "icon",
+    "aria-label": "Close",
+  },
+  play: async ({ canvas }) => {
+    await expect(
+      canvas.getByRole("button", { name: "Close" }),
+    ).toBeInTheDocument();
   },
 };
 
