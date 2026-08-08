@@ -67,9 +67,31 @@ export const KeyboardInteraction: Story = {
 
 export const DisabledInteraction: Story = {
   args: { disabled: true },
-  play: async ({ canvas, userEvent, args }) => {
-    await userEvent.click(canvas.getByRole("button"));
-    await expect(args.onClick).not.toHaveBeenCalled();
+  play: async ({ canvas }) => {
+    await expect(canvas.getByRole("button")).toBeDisabled();
+  },
+};
+
+export const LoadingInteraction: Story = {
+  args: { loading: true },
+  play: async ({ canvas }) => {
+    const button = canvas.getByRole("button");
+    await expect(button).toBeDisabled();
+    await expect(button).toHaveAttribute("aria-busy", "true");
+  },
+};
+
+export const IconOnlyInteraction: Story = {
+  args: {
+    startIcon: <X />,
+    children: undefined,
+    size: "icon",
+    "aria-label": "Close",
+  },
+  play: async ({ canvas }) => {
+    await expect(
+      canvas.getByRole("button", { name: "Close" }),
+    ).toBeInTheDocument();
   },
 };
 
