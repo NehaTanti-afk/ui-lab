@@ -22,3 +22,19 @@ export const DestructiveSubtle: Story = {
 export const DestructiveOutline: Story = {
   args: { variant: "destructive", fill: "outline", children: "Error" },
 };
+
+export const AllVariants: Story = {
+  render: () => (
+    <div className="space-y-3">
+      {(["default", "secondary", "destructive"] as const).map((variant) => (
+        <div key={variant} className="flex items-center gap-3">
+          {(["solid", "subtle", "outline"] as const).map((fill) => (
+            <Badge key={fill} variant={variant} fill={fill}>
+              {variant} {fill}
+            </Badge>
+          ))}
+        </div>
+      ))}
+    </div>
+  ),
+};

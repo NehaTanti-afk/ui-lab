@@ -32,6 +32,36 @@ const badgeVariants = cva(
     },
     compoundVariants: [
       {
+        variant: "default",
+        fill: "solid",
+        class: "bg-primary text-primary-foreground border-transparent",
+      },
+      {
+        variant: "default",
+        fill: "subtle",
+        class: "bg-primary/10 text-primary border-transparent",
+      },
+      {
+        variant: "default",
+        fill: "outline",
+        class: "bg-transparent text-primary border-primary",
+      },
+      {
+        variant: "secondary",
+        fill: "solid",
+        class: "bg-secondary text-secondary-foreground border-transparent",
+      },
+      {
+        variant: "secondary",
+        fill: "subtle",
+        class: "bg-secondary/50 text-secondary-foreground border-transparent",
+      },
+      {
+        variant: "secondary",
+        fill: "outline",
+        class: "bg-transparent text-secondary-foreground border-border",
+      },
+      {
         variant: "destructive",
         fill: "solid",
         class: "bg-destructive text-white border-transparent",
@@ -39,7 +69,7 @@ const badgeVariants = cva(
       {
         variant: "destructive",
         fill: "subtle",
-        class: "bg-destructive/10 text-destructive border-transparent",
+        class: "bg-destructive/10 text-destructive-strong border-transparent",
       },
       {
         variant: "destructive",
