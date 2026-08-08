@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, fn } from "storybook/test";
 
 import { Button } from "@/components/ui/button";
+import { ChevronRight, X } from "lucide-react";
 
 const meta = {
   title: "Components/Button",
@@ -28,6 +29,25 @@ export const Disabled: Story = { args: { disabled: true } };
 export const Subtle: Story = { args: { variant: "subtle" } };
 
 export const SizeXl: Story = { args: { size: "xl" } };
+
+export const WithStartIcon: Story = {
+  args: { startIcon: <X /> },
+};
+
+export const WithEndIcon: Story = {
+  args: { endIcon: <ChevronRight /> },
+};
+
+export const Loading: Story = { args: { loading: true } };
+
+export const IconOnly: Story = {
+  args: {
+    startIcon: <X />,
+    children: undefined,
+    size: "icon",
+    "aria-label": "Close",
+  },
+};
 
 export const ClickInteraction: Story = {
   play: async ({ canvas, userEvent, args }) => {

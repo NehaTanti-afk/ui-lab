@@ -4,8 +4,10 @@ import { Slot } from "radix-ui";
 
 import { cn } from "@/lib/utils";
 
+import { Loader2 } from "lucide-react";
+
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "group/button relative inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
@@ -48,10 +50,18 @@ function Button({
   variant = "default",
   size = "default",
   asChild = false,
+  startIcon,
+  endIcon,
+  children,
+  loading = false,
+  disabled,
   ...props
 }: React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean;
+    startIcon?: React.ReactNode;
+    endIcon?: React.ReactNode;
+    loading?: boolean;
   }) {
   const Comp = asChild ? Slot.Root : "button";
 
@@ -61,8 +71,22 @@ function Button({
       data-variant={variant}
       data-size={size}
       className={cn(buttonVariants({ variant, size, className }))}
+      aria-busy={loading}
+      disabled={disabled || loading}
       {...props}
-    />
+    >
+      {loading && <Loader2 className="absolute animate-spin" />}
+      <span
+        className={cn(
+          "inline-flex items-center gap-[inherit]",
+          loading && "opacity-0",
+        )}
+      >
+        {startIcon}
+        {children}
+        {endIcon}
+      </span>
+    </Comp>
   );
 }
 
