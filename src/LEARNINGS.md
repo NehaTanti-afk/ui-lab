@@ -56,3 +56,40 @@ It misses anything needing judgement: whether a label actually means something
 ("Click here" passes but is useless), whether tab order makes sense, whether focus
 goes somewhere sensible after a dialog closes. Zero violations means nothing
 obviously broken, not that it's accessible.
+
+## Phase 3 — Extending Button
+
+**1. Why startIcon: ReactNode rather than icon: LucideIcon + iconPosition**
+i will choose startIcon:ReactNode rather than icon:LucideIcon +iconposition because ReactNode render anything which is renderable.LucideIcon would lock every consumer of your design system to one icon library, and two separate props let you pass two icons at once.
+
+**2. Should loading be a cva variant or handled in the body?**
+loading should be handled in the body not cva because cva is collection of classes it returns strings so it should be handled in body separetly.cva returns a string; loading has to render a spinner and block clicks, which a string can't do.
+
+**3. How to stop an icon-only button shipping with no accessible name**
+with the help of console warning, the console warning -loud during development, wherever the component runs we can stop an icon-only button shipping with no accessible name.
+
+**4. Should icons be sized by the button or by the caller?**
+the icon size is decided by button which is default and caller, can override.
+
+**5. Does the button change width when loading? Should it?**
+no the button does not change the width when loading it only disappear the text the colour became grey.
+
+**6. Does asChild still work with icons?**
+with asChild , buttons renders nothings of its own it gives classes to the child.so there's no element for startIcon to render into; the caller has to put the icon inside their own element.
+
+**disabled vs aria-disabled**
+Used disabled. It blocks clicks and keyboard activation completely. The cost: a
+disabled button drops out of tab order, so a keyboard user filling a form loses
+their focus position the moment the button starts loading. aria-disabled would
+keep it focusable but I'd have to block the click myself.
+
+**What went wrong along the way**
+Storybook has its own entry point and never loads main.tsx, so index.css wasn't
+imported. Every story had been rendering without my tokens. Fixed by importing
+it in .storybook/preview.tsx.
+
+Because of that, my click tests on disabled and loading buttons had been passing
+for the wrong reason — pointer-events: none was never applied. Once the CSS
+loaded, they failed. Rewrote them to assert state (toBeDisabled, aria-busy)
+instead of simulating a click. A passing test proves nothing if the environment
+is broken.
