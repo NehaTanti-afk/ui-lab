@@ -1,0 +1,73 @@
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+
+import { cn } from "@/lib/utils";
+
+const inputVariants = cva(
+  "w-full min-w-0 rounded-lg border border-input bg-transparent transition-colors outline-none file:inline-flex file:border-0 file:bg-transparent file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-input/50 disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:bg-input/30 dark:disabled:bg-input/80 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40",
+  {
+    variants: {
+      size: {
+        sm: "h-7 px-2 py-1 text-sm file:h-5 file:text-xs",
+        default: "h-8 px-2.5 py-1 text-sm file:h-6 file:text-sm",
+        lg: "h-9 px-3 py-2 text-base file:h-7 file:text-base",
+      },
+    },
+    defaultVariants: {
+      size: "default",
+    },
+  },
+);
+
+function Input({
+  className,
+  type,
+  size,
+  invalid,
+  errorMessage,
+  startAdornment,
+  id,
+  ...props
+}: Omit<React.ComponentProps<"input">, "size"> &
+  VariantProps<typeof inputVariants> & {
+    invalid?: boolean;
+    errorMessage?: string;
+    startAdornment?: React.ReactNode;
+  }) {
+  const generatedId = React.useId();
+  const inputId = id ?? generatedId;
+  const errorId = `${inputId}-error`;
+
+  return (
+    <>
+      <div className="relative flex items-center">
+        {startAdornment && (
+          <span className="absolute left-2.5 flex items-center text-muted-foreground [&_svg]:size-4">
+            {startAdornment}
+          </span>
+        )}
+        <input
+          id={inputId}
+          type={type}
+          data-slot="input"
+          data-size={size}
+          aria-invalid={invalid || undefined}
+          aria-describedby={invalid && errorMessage ? errorId : undefined}
+          className={cn(
+            inputVariants({ size }),
+            startAdornment && "pl-8",
+            className,
+          )}
+          {...props}
+        />
+      </div>
+      {invalid && errorMessage && (
+        <p id={errorId} className="mt-1 text-sm text-destructive">
+          {errorMessage}
+        </p>
+      )}
+    </>
+  );
+}
+
+export { Input, inputVariants };
