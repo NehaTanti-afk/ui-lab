@@ -1,0 +1,43 @@
+import { Button } from "@/components/ui/button";
+import { Preview } from "@/docs/Preview";
+
+# Button
+
+Triggers an action. Use for things that _do_ something, not for navigation — use a link for that.
+
+## Preview
+
+<Preview
+  code={`<Button>Click me</Button>\n<Button variant="outline">Outline</Button>`}
+>
+  <Button>Click me</Button>
+  <Button variant="outline">Outline</Button>
+</Preview>
+
+## Variants
+
+<Preview
+  code={`<Button variant="destructive">Destructive</Button>\n<Button variant="ghost">Ghost</Button>`}
+>
+  <Button variant="destructive">Destructive</Button>
+  <Button variant="ghost">Ghost</Button>
+</Preview>
+
+## Props
+
+| Prop        | Type                                                                                         | Default     | Description                                            |
+| ----------- | -------------------------------------------------------------------------------------------- | ----------- | ------------------------------------------------------ |
+| `variant`   | `"default" \| "outline" \| "secondary" \| "ghost" \| "destructive" \| "link" \| "subtle"`    | `"default"` | Visual style.                                          |
+| `size`      | `"xs" \| "sm" \| "default" \| "lg" \| "xl" \| "icon" \| "icon-xs" \| "icon-sm" \| "icon-lg"` | `"default"` | Height and padding.                                    |
+| `startIcon` | `ReactNode`                                                                                  | —           | Rendered before the label.                             |
+| `endIcon`   | `ReactNode`                                                                                  | —           | Rendered after the label.                              |
+| `loading`   | `boolean`                                                                                    | `false`     | Shows a spinner, hides the label, disables the button. |
+| `asChild`   | `boolean`                                                                                    | `false`     | Render the child element instead of a `<button>`.      |
+| `className` | `string`                                                                                     | —           | Merged last, so it overrides.                          |
+
+## Accessibility
+
+- Keyboard: `Tab` to focus, `Enter` or `Space` to activate.
+- Focus ring uses `:focus-visible`, so it appears on keyboard focus but not mouse click.
+- Icon-only buttons need an `aria-label` — there is no text for a screen reader to announce.
+- When `loading`, the button sets `aria-busy="true"` and is `disabled`. Note that `disabled` removes it from tab order.
