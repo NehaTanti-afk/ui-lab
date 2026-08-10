@@ -8,6 +8,7 @@ import Home from "./docs/Home";
 import Installation from "./docs/Installation";
 import ComponentsIndex from "./docs/ComponentsIndex";
 import Dashboard from "./docs/Dashboard";
+import ButtonDocs from "./docs/components/button.mdx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -18,6 +19,7 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/docs/installation" element={<Installation />} />
           <Route path="/docs/components" element={<ComponentsIndex />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/docs/components/button" element={<ButtonDocs />} />
         </Route>
       </Routes>
     </BrowserRouter>
