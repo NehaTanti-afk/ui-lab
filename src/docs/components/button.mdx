@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Preview } from "@/docs/Preview";
 
 # Button
 
@@ -6,10 +7,18 @@ Triggers an action. Use for things that _do_ something, not for navigation — u
 
 ## Preview
 
-<Button>Click me</Button>
-<Button variant="outline">Outline</Button>
+<Preview
+  code={`<Button>Click me</Button>\n<Button variant="outline">Outline</Button>`}
+>
+  <Button>Click me</Button>
+  <Button variant="outline">Outline</Button>
+</Preview>
 
 ## Variants
 
-<Button variant="destructive">Destructive</Button>
-<Button variant="ghost">Ghost</Button>
+<Preview
+  code={`<Button variant="destructive">Destructive</Button>\n<Button variant="ghost">Ghost</Button>`}
+>
+  <Button variant="destructive">Destructive</Button>
+  <Button variant="ghost">Ghost</Button>
+</Preview>
