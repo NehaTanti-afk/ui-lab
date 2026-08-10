@@ -1,10 +1,25 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router";
 
-createRoot(document.getElementById('root')!).render(
+import "./index.css";
+import Layout from "./docs/Layout";
+import Home from "./docs/Home";
+import Installation from "./docs/Installation";
+import ComponentsIndex from "./docs/ComponentsIndex";
+import Dashboard from "./docs/Dashboard";
+
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App />
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/docs/installation" element={<Installation />} />
+          <Route path="/docs/components" element={<ComponentsIndex />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   </StrictMode>,
-)
+);
