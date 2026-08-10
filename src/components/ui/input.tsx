@@ -25,12 +25,14 @@ function Input({
   size,
   invalid,
   errorMessage,
+  startAdornment,
   id,
   ...props
 }: Omit<React.ComponentProps<"input">, "size"> &
   VariantProps<typeof inputVariants> & {
     invalid?: boolean;
     errorMessage?: string;
+    startAdornment?: React.ReactNode;
   }) {
   const generatedId = React.useId();
   const inputId = id ?? generatedId;
@@ -38,16 +40,27 @@ function Input({
 
   return (
     <>
-      <input
-        id={inputId}
-        type={type}
-        data-slot="input"
-        data-size={size}
-        aria-invalid={invalid || undefined}
-        aria-describedby={invalid && errorMessage ? errorId : undefined}
-        className={cn(inputVariants({ size }), className)}
-        {...props}
-      />
+      <div className="relative flex items-center">
+        {startAdornment && (
+          <span className="absolute left-2.5 flex items-center text-muted-foreground [&_svg]:size-4">
+            {startAdornment}
+          </span>
+        )}
+        <input
+          id={inputId}
+          type={type}
+          data-slot="input"
+          data-size={size}
+          aria-invalid={invalid || undefined}
+          aria-describedby={invalid && errorMessage ? errorId : undefined}
+          className={cn(
+            inputVariants({ size }),
+            startAdornment && "pl-8",
+            className,
+          )}
+          {...props}
+        />
+      </div>
       {invalid && errorMessage && (
         <p id={errorId} className="mt-1 text-sm text-destructive">
           {errorMessage}
