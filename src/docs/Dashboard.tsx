@@ -1,3 +1,14 @@
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -20,7 +31,7 @@ const rows = [
   { name: "Billing migration", owner: "Arun", status: "blocked" },
   { name: "Search revamp", owner: "Meera", status: "done" },
   { name: "Mobile nav", owner: "Kiran", status: "active" },
-];
+] as const;
 
 const statusFill = {
   active: { variant: "default", fill: "subtle" },
@@ -50,7 +61,29 @@ export default function Dashboard() {
       </aside>
 
       <div className="min-w-0 flex-1 space-y-6">
-        <h1 className="text-2xl font-medium">Overview</h1>
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-medium">Overview</h1>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button>Create project</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>New project</DialogTitle>
+                <DialogDescription>
+                  Give your project a name and an owner.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="space-y-3">
+                <Input placeholder="Project name" />
+                <Input placeholder="Owner" />
+              </div>
+              <DialogFooter showCloseButton>
+                <Button>Create</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </div>
 
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((stat) => (
