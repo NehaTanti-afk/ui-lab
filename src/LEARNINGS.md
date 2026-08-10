@@ -93,3 +93,25 @@ for the wrong reason — pointer-events: none was never applied. Once the CSS
 loaded, they failed. Rewrote them to assert state (toBeDisabled, aria-busy)
 instead of simulating a click. A passing test proves nothing if the environment
 is broken.
+
+## Phase 4 — Five components
+
+**1. Dialog: what Radix handled, and what it didn't**
+.radix handles internal things like how tabs works, clicks works etc not how buttons looks basically it gives accessibility the size, height you can decided, in short Radix handles behaviour and accessibility; you handle appearance.
+
+**2. Tabs: automatic vs manual activation**
+automatic is suitable because it takes us to next panel automatic but it is suitable where data is not fetch from browser when data is load and heavy then use manual.
+
+**3. DropdownMenu inside Dialog: what determined which painted on top?**
+Equal z-index means DOM order decides, and the dialog was landing later.Found by inspecting where each portal landed. Fixed by raising the menu to z-60 rather than reordering.
+
+**4. Input: what aria-invalid + aria-describedby gives that a red border doesn't**
+aria invalid only shows error but aria descibedly describe the reason behind why it is showing error.
+
+**5. Across all five: which prop APIs came out consistent, and which drifted?**
+size: size means height on Button and Input, but max-width on Dialog.
+Card's size meant padding — I renamed it to density.
+variant:variant means colour on Button and Badge, layout on TabsList, and only default/destructive on DropdownMenuItem.
+asChild:asChild is only on Button and Badge. className: className is always last in cn(), so overrides always work.
+data-slot:data-slot is on every component.
+(className, data-slot) are consistent because shadcn shipped them that way.
