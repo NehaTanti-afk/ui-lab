@@ -72,22 +72,27 @@ function Button({
       data-size={size}
       className={cn(buttonVariants({ variant, size, className }))}
       aria-busy={loading}
-      disabled={disabled || loading}
+      disabled={asChild ? undefined : disabled || loading}
       {...props}
     >
-      {loading && <Loader2 className="absolute animate-spin" />}
-      <span
-        className={cn(
-          "inline-flex items-center gap-[inherit]",
-          loading && "opacity-0",
-        )}
-      >
-        {startIcon}
-        {children}
-        {endIcon}
-      </span>
+      {asChild ? (
+        children
+      ) : (
+        <>
+          {loading && <Loader2 className="absolute animate-spin" />}
+          <span
+            className={cn(
+              "inline-flex items-center gap-[inherit]",
+              loading && "invisible",
+            )}
+          >
+            {startIcon}
+            {children}
+            {endIcon}
+          </span>
+        </>
+      )}
     </Comp>
   );
 }
-
 export { Button, buttonVariants };
