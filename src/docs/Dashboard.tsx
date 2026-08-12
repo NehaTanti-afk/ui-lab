@@ -42,7 +42,7 @@ const statusFill = {
 export default function Dashboard() {
   return (
     <div className="flex gap-6">
-      <aside className="w-48 shrink-0 space-y-1 text-sm">
+      <aside className="hidden w-48 shrink-0 space-y-1 text-sm md:block">
         <p className="px-2 py-1.5 font-medium text-muted-foreground">Menu</p>
         <nav className="flex flex-col gap-1">
           <button className="rounded-md px-2 py-1.5 text-left hover:bg-muted">
@@ -61,7 +61,7 @@ export default function Dashboard() {
       </aside>
 
       <div className="min-w-0 flex-1 space-y-6">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-3">
           <h1 className="text-2xl font-medium">Overview</h1>
           <Dialog>
             <DialogTrigger asChild>
@@ -106,26 +106,28 @@ export default function Dashboard() {
           </TabsList>
 
           <TabsContent value="projects">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b text-left text-muted-foreground">
-                  <th className="py-2 font-medium">Project</th>
-                  <th className="py-2 font-medium">Owner</th>
-                  <th className="py-2 font-medium">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map((row) => (
-                  <tr key={row.name} className="border-b">
-                    <td className="py-2">{row.name}</td>
-                    <td className="py-2">{row.owner}</td>
-                    <td className="py-2">
-                      <Badge {...statusFill[row.status]}>{row.status}</Badge>
-                    </td>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b text-left text-muted-foreground">
+                    <th className="py-2 pr-4 font-medium">Project</th>
+                    <th className="py-2 pr-4 font-medium">Owner</th>
+                    <th className="py-2 font-medium">Status</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {rows.map((row) => (
+                    <tr key={row.name} className="border-b">
+                      <td className="py-2 pr-4">{row.name}</td>
+                      <td className="py-2 pr-4">{row.owner}</td>
+                      <td className="py-2">
+                        <Badge {...statusFill[row.status]}>{row.status}</Badge>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </TabsContent>
 
           <TabsContent value="activity">

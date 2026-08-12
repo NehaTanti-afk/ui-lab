@@ -12,11 +12,11 @@ import {
 export default function Layout() {
   return (
     <div className="min-h-svh">
-      <header className="flex items-center justify-between border-b px-6 py-3">
+      <header className="flex flex-wrap items-center justify-between gap-2 border-b px-4 py-3 sm:px-6">
         <Link to="/" className="font-medium">
           ui-lab
         </Link>
-        <nav className="flex items-center gap-4 text-sm">
+        <nav className="flex flex-wrap items-center gap-3 text-sm">
           <Link to="/docs/installation">Installation</Link>
           <Link to="/docs/components">Components</Link>
           <Link to="/dashboard">Dashboard</Link>
@@ -44,7 +44,7 @@ export default function Layout() {
           </DropdownMenu>
         </nav>
       </header>
-      <main className="mx-auto max-w-4xl px-6 py-10">
+      <main className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
         <Outlet />
       </main>
     </div>
