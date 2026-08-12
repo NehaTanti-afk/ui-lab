@@ -1,7 +1,6 @@
 import "../src/index.css";
 
 import type { Preview } from "@storybook/react-vite";
-import React from "react";
 const preview: Preview = {
   globalTypes: {
     theme: {
