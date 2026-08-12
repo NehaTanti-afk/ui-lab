@@ -1,75 +1,42 @@
-# React + TypeScript + Vite
+# ui-lab
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A small design system built from scratch to learn how one works.
 
-Currently, two official plugins are available:
+**Live:** https://ui-lab-2.vercel.app
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## What's in it
 
-## React Compiler
+Seven components — Button, Badge, Input, Card, Dialog, Tabs, DropdownMenu — built on
+Radix primitives with a Tailwind v4 token layer, documented in Storybook and on an
+MDX docs site, plus a dashboard demonstrating composition.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Stack
 
-## Expanding the ESLint configuration
+Vite · React · TypeScript · Tailwind v4 · Radix UI · Storybook · Vitest · GitHub Actions
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Running it
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+pnpm install
+pnpm dev          # docs site and dashboard
+pnpm storybook    # component workshop
+pnpm exec vitest run   # interaction tests
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## What I learned
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+The most useful failures were the silent ones. A contrast violation of 3.98 against
+a required 4.5 that no eye could catch — and where my first fix made it worse. A
+class that did nothing because of a stray space in the name. A size prop that never
+applied because a responsive prefix needed a viewport I didn't have. Interaction
+tests that passed for months because Storybook was rendering without my stylesheet,
+so `pointer-events: none` never applied.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+None of those produced an error. Each one only surfaced by inspecting the rendered
+result rather than trusting the source.
 
-```
+The other thing that stuck: Radix owns behaviour, I own appearance. Focus traps,
+keyboard handling and ARIA wiring came free. Every colour, size and animation
+was mine.
+
+Full per-phase notes in [LEARNINGS.md](./LEARNINGS.md).

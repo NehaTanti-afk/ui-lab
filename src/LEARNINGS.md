@@ -115,3 +115,33 @@ variant:variant means colour on Button and Badge, layout on TabsList, and only d
 asChild:asChild is only on Button and Badge. className: className is always last in cn(), so overrides always work.
 data-slot:data-slot is on every component.
 (className, data-slot) are consistent because shadcn shipped them that way.
+
+## Phase 5 — Docs site and dashboard
+
+**How does an MDX file become a route?**
+The MDX plugin converts the file into a React component, main.tsx imports it,
+a Route connects it to a URL, and React Router renders it inside the Layout's Outlet.
+
+**Why is a live preview better than a screenshot?**
+It updates when the component changes — a screenshot keeps showing the old colour
+or font and nothing warns you, so the docs lie silently. A live preview also works
+with the theme toggle, and you can tab to it and click it, so it proves the
+behaviour instead of just claiming it.
+
+**What would break with a seventh component? What would you automate first?**
+Five places to update by hand: the .mdx file, the import, the route, the index
+array, and the props table. Forget the route and the link 404s; forget the index
+and nobody can find the page. I would automate routing and the index first —
+a broken link is worse than an incomplete table, and a missing index entry means
+there is nothing to notice.
+
+**Where is the boundary between Storybook and the docs site?**
+Storybook is for the developer building the components — every state, including
+broken ones, plus the a11y panel and the interaction tests. The docs site is for
+someone using them — what it does, when to use it, one good example and the props.
+
+**Props tables: hand-write or auto-generate?**
+Chose auto-generation in principle, kept hand-written for now. A hand-written table
+is a second source of truth and goes stale silently. But setup costs more than
+writing seven tables, and the Description column can't be generated from types.
+Would revisit around twenty components.
